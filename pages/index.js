@@ -4,11 +4,11 @@ import { Inter } from "next/font/google";
 import styles from "@styles/Home.module.scss";
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 import Container from "@components/Container";
-import products from '@data/products.json';
+// import products from '@data/products.json';
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({products}) {
   return (
     <>
       <Head>
@@ -25,10 +25,10 @@ export default function Home() {
               const { featuredImage } = product;
 
               return (
-                <div className={styles.productItem} key={product.id} data-id={product.id}>
-                  {/* <Image width="1200" height="750" src={featuredImage.node.sourceUrl} alt={featuredImage.altText} />
+                <div className={styles.productItem} key={product.id}>
+                  <Image width="1200" height="750" src={featuredImage.node.sourceUrl} alt={featuredImage.altText} />
                   <h3 className={styles.productTitle}>{product.title}</h3>
-                  <div className={styles.productDesc} dangerouslySetInnerHTML={{ __html: product.content }} /> */}
+                  <div className={styles.productDesc} dangerouslySetInnerHTML={{ __html: product.content }} />
                 </div>
               )
           })}
