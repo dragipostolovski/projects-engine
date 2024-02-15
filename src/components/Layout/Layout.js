@@ -1,3 +1,5 @@
+import Header from '../Header';
+import Footer from '../Footer';
 import styles from './Layout.module.scss';
 
 const Layout = ({children, className, ...rest}) => { // prop
@@ -9,7 +11,10 @@ const Layout = ({children, className, ...rest}) => { // prop
 
     return (
         <div className={layoutClassName} {...rest}>
+            <Header />
             {children}
+
+            <Footer />
         </div>
     )
 }
