@@ -1,11 +1,14 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
+import StatusBar from '@hooks/status-bar';
+import SaveButton from '@hooks/save-button';
 import Header from "@components/Header";
 import styles from "@styles/Home.module.scss";
 import Footer from "@components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function About() {
+const About = () => {
+
   return (
     <>
       <Head>
@@ -16,9 +19,12 @@ export default function About() {
       </Head>
       <Header />
       <main className={`${styles.main} ${inter.className}`}>
-
+      <StatusBar />
+      <SaveButton />
       </main>
       <Footer />
     </>
   );
 }
+
+export default About;

@@ -26,7 +26,7 @@ export default function Home({products}) {
 
                 return (
                   <div className={styles.productItem} key={product.id}>
-                    <Image width="1200" height="750" src={featuredImage.node.sourceUrl} alt={featuredImage.altText} />
+                    <Image width="1200" height="750" src={featuredImage.node.sourceUrl} alt={featuredImage.node.altText} priority />
                     <h3 className={styles.productTitle}>{product.title}</h3>
                     <div className={styles.productDesc} dangerouslySetInnerHTML={{ __html: product.content }} />
                   </div>
