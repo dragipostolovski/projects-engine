@@ -11,6 +11,10 @@ const Layout = ({children, className, ...rest}) => { // prop
 
     return (
         <div className={layoutClassName} {...rest}>
+             <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Header />
             {children}
 
