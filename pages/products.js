@@ -40,7 +40,7 @@ export default function Products({products}) {
         <div className={styles.description}>
           <p>
             Get started with&nbsp;
-            <code className={styles.code}>Projects Engine</code>
+            <code className={styles.code}><a href="/" alt="Projects Engine">Projects Engine</a></code>
           </p>
         </div>
 

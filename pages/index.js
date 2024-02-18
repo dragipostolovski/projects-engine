@@ -23,7 +23,7 @@ export default function Home({products}) {
 
         <Container className={styles.productsContainer}>
           <div className={styles.productsList}>
-            {products.map(product => {
+            {products ? products.map(product => {
                 const { featuredImage } = product;
 
                 return (
@@ -33,43 +33,12 @@ export default function Home({products}) {
                     <div className={styles.productDesc} dangerouslySetInnerHTML={{ __html: product.content }} />
                   </div>
                 )
-            })}
+            }) : ''}
           </div>
         </Container>
 
         <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{" "}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/logo.png"
-            alt="Projects Engine"
-            width={300}
-            height={37}
-            priority
-          />
+          <p>Get started by visiting our <code className={styles.code}><a href="/products">products page</a></code>.</p>
         </div>
 
         <Begginer />
@@ -79,57 +48,57 @@ export default function Home({products}) {
   );
 }
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
 
-  const client = new ApolloClient({
-    uri: process.env.WP_API,
-    cache: new InMemoryCache()
-  });
+//   const client = new ApolloClient({
+//     uri: process.env.WP_API,
+//     cache: new InMemoryCache()
+//   });
 
-  const response = await client.query({
-    query: gql`
-      query NewQuery {
-        products {
-          edges {
-            node {
-              id
-              productId
-              title
-              content
-              date
-              slug
-              uri
-              product {
-                productId
-                productPrice
-              }
-              featuredImage {
-                node {
-                  mediaItemId
-                  altText
-                  sourceUrl
-                }
-              }
-            }
-          }
-        }
-      }
-    `
-  });
+//   const response = await client.query({
+//     query: gql`
+//       query NewQuery {
+//         products {
+//           edges {
+//             node {
+//               id
+//               productId
+//               title
+//               content
+//               date
+//               slug
+//               uri
+//               product {
+//                 productId
+//                 productPrice
+//               }
+//               featuredImage {
+//                 node {
+//                   mediaItemId
+//                   altText
+//                   sourceUrl
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     `
+//   });
 
-  const products = response.data.products.edges.map(({node}) => {
-    const data = {
-      ...node,
-      ...node.product,
-      ...node.featuredImage.node
-    }
+//   const products = response.data.products.edges.map(({node}) => {
+//     const data = {
+//       ...node,
+//       ...node.product,
+//       ...node.featuredImage.node
+//     }
 
-    return data;
-  })
+//     return data;
+//   })
 
-  return {
-    props: {
-      products 
-    }
-  }
-}
+//   return {
+//     props: {
+//       products 
+//     }
+//   }
+// }

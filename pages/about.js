@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
+import Begginer from "@components/Beginner";
 import StatusBar from '@hooks/status-bar';
 import SaveButton from '@hooks/save-button';
 import Layout from "@components/Layout";
@@ -17,6 +18,7 @@ const About = () => {
       </Head>
 
       <main className={`${styles.main} ${inter.className}`}>
+        <Begginer />
         <StatusBar />
         <SaveButton />
       </main>
