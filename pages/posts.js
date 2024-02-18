@@ -28,10 +28,8 @@ export default function Posts({posts, categories}) {
 
     if( activeCat ) {
         activePosts = activePosts.filter( ({categories}) => {
-            const catIds = categories.edges.map( (e) => e.node.categoryId);
+            const catIds = categories.map( ({categoryId}) => categoryId);
 
-            console.log(catIds);
-            
             return catIds.includes(activeCat);
         } )
     }
@@ -140,7 +138,7 @@ export async function getStaticProps() {
     const data = {
       ...node,
       ...node.featuredImage,
-      ...node.categories.edges
+      categories: node.categories.edges.map( ({node}) => node)
     }
 
     return data;
