@@ -23,15 +23,23 @@ const FeaturedImage = ({post}) => {
 }
 
 export default function Posts({posts, categories}) {
-    const [ activeCat, setActiveCat ] = useState(); // default value is ''
+    const [ activeCat, setActiveCat ] = useState('All posts'); // default value is ''
     let activePosts = posts;
 
-    if( activeCat ) {
-        activePosts = activePosts.filter( ({categories}) => {
-            const catIds = categories.map( ({categoryId}) => categoryId);
+    if( 'All posts' != activeCat ) {
+        let filtered = [];
 
-            return catIds.includes(activeCat);
+        activePosts.map( (post) => {
+            post.categories.map( (cat) => {
+                
+                if( cat.categoryId == activeCat ) {
+                    filtered.push(post);
+                }
+
+            })
         } )
+
+        activePosts = filtered;
     }
 
   return (
@@ -46,7 +54,7 @@ export default function Posts({posts, categories}) {
 
         <Container className={styles.productsContainer}>
             <select className={styles.filterPosts} onChange={(e) => setActiveCat(e.target.value)}>
-                <option value={``} >All posts</option>
+                <option value={undefined} >All posts</option>
                 {categories.map(cat => {
                     return (
                         <option key={cat.id} value={cat.termTaxonomyId} data-slug={cat.slug}>{cat.name}</option>
