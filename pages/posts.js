@@ -7,6 +7,8 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import Container from "@components/Container";
 import Begginer from "@components/Beginner";
 import { useState } from "react";
+import Fuse from 'fuse.js'
+
 // import products from '@data/products.json';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,6 +26,8 @@ const FeaturedImage = ({post}) => {
 
 export default function Posts({posts, categories}) {
     const [ activeCat, setActiveCat ] = useState('All posts'); // default value is ''
+    const [ query, setQuery ] = useState();
+
     let activePosts = posts;
 
     if( 'All posts' != activeCat ) {
@@ -42,6 +46,31 @@ export default function Posts({posts, categories}) {
         activePosts = filtered;
     }
 
+    const fuse = new Fuse(activePosts, {
+      keys: [
+        'title',
+        'categories.name'
+      ],
+      includeScore: true
+    });
+
+    if( query ) {
+        const results = fuse.search(query);
+        
+        console.log(results);
+
+        activePosts = results.map( ({item} ) => item );
+
+        // activePosts = activePosts.filter(({title} ) => {
+        //     return title.toLowerCase().includes(query.toLowerCase());
+        // }) 
+    }
+
+    function handleSearchPosts(e) {
+        const searchFor = e.target.value;
+        setQuery(searchFor);
+    }
+
   return (
     <Layout className={styles.layoutIndex}>
 
@@ -53,6 +82,11 @@ export default function Posts({posts, categories}) {
       <main className={`${styles.main} ${inter.className}`}>
 
         <Container className={styles.productsContainer}>
+            <div className={styles.discover}>
+              <from>
+                  <input type="text" name="s" id="s" onChange={handleSearchPosts}/>
+              </from>
+            </div>
             <select className={styles.filterPosts} onChange={(e) => setActiveCat(e.target.value)}>
                 <option value={undefined} >All posts</option>
                 {categories.map(cat => {
